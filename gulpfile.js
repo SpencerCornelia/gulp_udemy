@@ -6,6 +6,7 @@ var prefix = require("gulp-autoprefixer");
 var concatCSS = require("gulp-concat-css");
 var sass = require("gulp-sass");
 var jshint = require("gulp-jshint");
+var stylish = require("jshint-stylish");
 
 // handles gulp errors
 function handleErrors (error) {
@@ -48,7 +49,7 @@ gulp.task("scripts", function () {
 	console.log("starting scripts");
 	gulp.src("public/js/main.js")
 		.pipe(jshint())
-		.pipe(jshint.reporter("default"))
+		.pipe(jshint.reporter(stylish))
 		.pipe(jshint.reporter("fail"))
 		.on("error", function() {
 			this.emit("end")
