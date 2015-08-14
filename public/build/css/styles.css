@@ -1,1 +1,1 @@
-body{background-color:#eee}h1{color:red}
+body{background-color:#eee}h1{color:red;-webkit-transition:color .5s ease;transition:color .5s ease}h1:hover{color:#333}
