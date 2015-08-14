@@ -1,10 +1,14 @@
 var gulp = require("gulp");
 var uglify = require("gulp-uglify");
 var livereload = require("gulp-livereload");
+var minifyCSS = require("gulp-minify-css");
 
 // modifies styles
 gulp.task("styles", function () {
 	console.log("starting styles");
+	gulp.src("public/css/styles.css")
+		.pipe(minifyCSS())
+		.pipe(gulp.dest("public/build/css"));
 });
 
 // modifies scripts
@@ -23,6 +27,9 @@ gulp.task("watch", function () {
 		.on("change", livereload.changed);
 
 	gulp.watch("public/index.html").on("change", livereload.changed);	
+
+	gulp.watch("public/css/styles.css", ["styles"])
+		.on("change", livereload.changed);	
 });
 
 // runs all gulp tasks
