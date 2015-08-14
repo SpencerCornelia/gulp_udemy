@@ -14,6 +14,13 @@ gulp.task("scripts", function () {
 		.pipe(gulp.dest("public/build/js/"));
 });
 
+// watches files
+gulp.task("watch", function () {
+	gulp.watch("public/js/main.js", function () {
+		gulp.start("scripts");
+	});
+});
+
 // runs all gulp tasks
 gulp.task("default", function () {
 	gulp.start("styles", "scripts");
