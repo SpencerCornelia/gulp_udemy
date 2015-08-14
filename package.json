@@ -12,6 +12,7 @@
     "connect": "^3.4.0",
     "express": "^4.13.3",
     "gulp": "*",
+    "gulp-livereload": "^3.8.0",
     "gulp-uglify": "^1.2.0"
   }
 }

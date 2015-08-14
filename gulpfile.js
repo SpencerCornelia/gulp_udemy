@@ -1,5 +1,6 @@
 var gulp = require("gulp");
 var uglify = require("gulp-uglify");
+var livereload = require("gulp-livereload");
 
 // modifies styles
 gulp.task("styles", function () {
@@ -16,9 +17,12 @@ gulp.task("scripts", function () {
 
 // watches files
 gulp.task("watch", function () {
-	gulp.watch("public/js/main.js", function () {
-		gulp.start("scripts");
-	});
+	livereload.listen();
+
+	gulp.watch("public/js/main.js", ["scripts"])
+		.on("change", livereload.changed);
+
+	gulp.watch("public/index.html").on("change", livereload.changed);	
 });
 
 // runs all gulp tasks
