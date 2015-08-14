@@ -7,6 +7,7 @@ var concatCSS = require("gulp-concat-css");
 var sass = require("gulp-sass");
 var jshint = require("gulp-jshint");
 var stylish = require("jshint-stylish");
+var concat = require("gulp-concat");
 
 // handles gulp errors
 function handleErrors (error) {
@@ -47,13 +48,14 @@ gulp.task("styles:vendor:reload", function () {
 // modifies scripts
 gulp.task("scripts", function () {
 	console.log("starting scripts");
-	gulp.src("public/js/main.js")
+	gulp.src("public/js/**/*.js")
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylish))
 		.pipe(jshint.reporter("fail"))
 		.on("error", function() {
 			this.emit("end")
 		})
+		.pipe(concat("scripts.min.js"))
 		.pipe(uglify())
 		.pipe(gulp.dest("public/build/js/"));
 });
@@ -67,7 +69,7 @@ gulp.task("scripts:reload", function () {
 gulp.task("watch", function () {
 	livereload.listen();
 
-	gulp.watch("public/js/main.js", ["scripts", "scripts:reload"])
+	gulp.watch("public/js/**/*.js", ["scripts", "scripts:reload"])
 
 	gulp.watch("public/index.html").on("change", livereload.changed);	
 
