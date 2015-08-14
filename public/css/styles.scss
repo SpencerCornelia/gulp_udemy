@@ -1,14 +1,9 @@
-$primary-color: #eee;
-
 body {
-	background-color: $primary-color;
+	background: #eee;
+	padding: 2rem;
+	text-align: center;
 }
 
-h1 {
-	color: red;
-	transition: color .5s ease;
-}
-
-h1:hover {
-	color: #333;
+img {
+	max-height: 300px;
 }

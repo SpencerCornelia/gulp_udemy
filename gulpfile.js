@@ -23,12 +23,23 @@ gulp.task("styles", function () {
 		.pipe(gulp.dest("public/build/css"));
 });
 
+// reloads styles
+
+gulp.task("styles:reload", function () {
+	gulp.src("public/css/styles.css").pipe(livereload({auto:false}));
+});
+
 // modifies vendor styles
 gulp.task("styles:vendor", function() {
 	gulp.src("public/vendor/css/**/*.css")
 		.pipe(concatCSS("vendor.min.css"))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest("public/build/css"));
+});
+
+// reloads vendor styles
+gulp.task("styles:vendor:reload", function () {
+	gulp.src("public/vendor/css/**/*.css").pipe(livereload({auto:false}));
 });
 
 // modifies scripts
@@ -39,20 +50,22 @@ gulp.task("scripts", function () {
 		.pipe(gulp.dest("public/build/js/"));
 });
 
+// reloads scripts
+gulp.task("scripts:reload", function () {
+	gulp.src("public/js/main.js").pipe(livereload({auto:false}));
+});
+
 // watches files
 gulp.task("watch", function () {
 	livereload.listen();
 
-	gulp.watch("public/js/main.js", ["scripts"])
-		.on("change", livereload.changed);
+	gulp.watch("public/js/main.js", ["scripts", "scripts:reload"])
 
 	gulp.watch("public/index.html").on("change", livereload.changed);	
 
-	gulp.watch("public/css/styles.scss", ["styles"])
-		.on("change", livereload.changed);	
+	gulp.watch("public/css/styles.scss", ["styles", "styles:reload"]);
 
-	gulp.watch("public/vendor/css/**/*.scss", ["styles:vendor"])
-		.on("change", livereload.changed);		
+	gulp.watch("public/vendor/css/**/*.scss", ["styles:vendor", "styles:vendor:reload"])		
 });
 
 // runs all gulp tasks
