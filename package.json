@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "connect": "^3.4.0",
+    "express": "^4.13.3",
     "gulp": "*",
     "gulp-uglify": "^1.2.0"
   }
