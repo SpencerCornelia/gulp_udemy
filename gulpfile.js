@@ -3,12 +3,21 @@ var uglify = require("gulp-uglify");
 var livereload = require("gulp-livereload");
 var minifyCSS = require("gulp-minify-css");
 var prefix = require("gulp-autoprefixer");
+var concatCSS = require("gulp-concat-css");
 
 // modifies styles
 gulp.task("styles", function () {
 	console.log("starting styles");
 	gulp.src("public/css/styles.css")
 		.pipe(prefix("last 2 versions"))
+		.pipe(minifyCSS())
+		.pipe(gulp.dest("public/build/css"));
+});
+
+// modifies vendor styles
+gulp.task("styles:vendor", function() {
+	gulp.src("public/vendor/css/**/*.css")
+		.pipe(concatCSS("vendor.min.css"))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest("public/build/css"));
 });
@@ -32,6 +41,9 @@ gulp.task("watch", function () {
 
 	gulp.watch("public/css/styles.css", ["styles"])
 		.on("change", livereload.changed);	
+
+	gulp.watch("public/vendor/css/**/*.css", ["styles:vendor"])
+		.on("change", livereload.changed);		
 });
 
 // runs all gulp tasks
